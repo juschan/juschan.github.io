@@ -1,0 +1,13 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>Tags on Justin Chan</title>
+		<link>https://juschan.github.io/tags/</link>
+		<description>Recent content in Tags on Justin Chan</description>
+		<generator>Hugo 0.58.3 -- gohugo.io</generator>
+		<language>en</language>
+		<managingEditor>justinchanuk@gmail.com (Justin Chan)</managingEditor>
+		<webMaster>justinchanuk@gmail.com (Justin Chan)</webMaster>
+		<copyright>Justin Chan — All rights reserved.</copyright>
+		<atom:link href="https://juschan.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+	</channel>
+</rss>
