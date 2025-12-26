@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" class="holiday-css-light"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>Justin Chan's Blog</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="./style/holiday.css@0.11.css">
+  </head>
+
+  <body>
+    <header>
+      <h1>Justin Chan's Blog
+      </h1>
+    </header>
+    <nav>
+      <ul>
+        <li><a href="#" aria-current="page">Home</a></li>
+        <li><a href="#">About Me</a></li>
+        <li><a href="#">Blogs</a></li>
+        <li>
+          <span>Menu</span>
+          <ul>
+            <li><a href="#">Link 1</a></li>
+            <li><a href="#">Link 2</a></li>
+            <li><a href="#">Link 3</a></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+    <main>
+      <p>Welcome to my blog</p>
+    </main>
+    <footer></footer>
+
+    <!-- dark-mode-toggle -->
+    <dark-mode-toggle permanent="" style="position: absolute; top: 0; border: 0; left: 1rem" mode="light" appearance="toggle"></dark-mode-toggle>
+    <script type="module" src="./style/dark-mode-toggle.min.mjs"></script>
+    <script>
+      const toggle = document.querySelector("dark-mode-toggle");
+
+      // Set or remove the mode classes the first time:
+      if (toggle.mode === "dark") {
+        document.documentElement.classList.add("holiday-css-dark");
+      } else if (toggle.mode === "light") {
+        document.documentElement.classList.add("holiday-css-light");
+      }
+
+      // Listen for toggle changes (which includes `prefers-color-scheme`
+      // changes) and toggle the `dark` class accordingly:
+      toggle.addEventListener("colorschemechange", () => {
+        document.documentElement.classList.toggle(
+          "holiday-css-dark",
+          toggle.mode === "dark",
+        );
+        document.documentElement.classList.toggle(
+          "holiday-css-light",
+          toggle.mode === "light",
+        );
+      });
+    </script>
+  
+
+</body></html>

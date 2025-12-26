@@ -1,0 +1,348 @@
+﻿<html lang="en" class="holiday-css-light"><head>
+
+    <meta charset="utf-8"/>
+    <title>Justin Chan's Blog</title>
+    <meta name="description" content/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" href="../style/holiday.css@0.11.css"/>
+  </head>
+
+  <body>
+  <header>
+      <h1>Justin Chan's Blog
+      </h1>
+  </header>
+    <nav>
+      <ul>
+        <li><a href="#" aria-current="page">Home</a></li>
+        <li><a href="#">About Me</a></li>
+        <li><a href="#">Blogs</a></li>
+        <li>
+          <span>Menu</span>
+          <ul>
+            <li><a href="#">Link 1</a></li>
+            <li><a href="#">Link 2</a></li>
+            <li><a href="#">Link 3</a></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+  <main>
+    <h2>Exposed to Risk - Month-level Granularity for Birth and Policy Start Dates Occurring in the Same Month for Policy Start Month</h2>
+	<p></p>
+	<h3>Summary</h3>
+	<p>Mathematical derivation of exposed to risk where both birth dates and policy start dates occurring in the same month, for policy start month where month-level granularity data is provided.</p>
+	<p></p>
+	<h3>Introduction</h3>
+	<p>Exposed to risk is commonly required when deriving mortality rates (as part mortality studies). In the event that the policy start date (eg. April 2021) is provided at month-level granularity (ie. no day is given), we allocate 0.5 month exposure the policy start month. We investigate the further split this exposure by age, specifically when the birth month occurs in same month as policy start month.</p>
+	<p></p>
+	<h3>Example</h3>
+	<p>Consider an individual whose birth month is April 1980, and purchases a term policy on April 2021. It is not known the exact date that he purchased the policy, so all 30 days (in April) are equally likely. We look at all possible 30 policy start dates and perform some counting to determine the different ways that the age allocation can work out in each instance. It is easier to work backwards from 30th April in this case because we know at the latest, the life must be age 41 on 30 April 2021. Assume age last birthday definition.</p>
+	<p></p>
+	<figure>
+    <img alt="exposed to risk age allocations" title="exposed to risk age allocations" src="file://C:/Users/Admin/Documents/Blog/20251226_exposed_to_risk/exposed_to_risk_age_allocations.jpg"/>
+    <figcaption>exposed to risk age allocations</figcaption>
+  </figure>
+	<p>From the diagram above, we see that both the count of age 40 and 41 follow an arithmetic series (ie. sum of n-1 and&nbsp;n). Total counts are n<sup>2</sup>. We further summarise our results for all 30 days and determine the proportion of age x-1 and age x to 3 decimal places.</p>
+	<p></p>
+	<h3>&nbsp;Exposed to Risk Allocation by Age on Policy Start Month&nbsp;</h3><table border="0">
+
+ 
+  
+ <tbody><tr>
+  <td>n</td>
+  <td>Count of age,
+  x-1</td>
+  <td>Count of age, x</td>
+  <td>Total Count</td>
+  <td>Proportion of
+  Age x-1</td>
+  <td>Proportion of
+  Age x</td>
+ </tr>
+ <tr>
+  <td align="right">1</td>
+  <td align="right">0</td>
+  <td align="right">1</td>
+  <td align="right">1</td>
+  <td align="right">0.000</td>
+  <td align="right">1.000</td>
+ </tr>
+ <tr>
+  <td align="right">2</td>
+  <td align="right">1</td>
+  <td align="right">3</td>
+  <td align="right">4</td>
+  <td align="right">0.250</td>
+  <td align="right">0.750</td>
+ </tr>
+ <tr>
+  <td align="right">3</td>
+  <td align="right">3</td>
+  <td align="right">6</td>
+  <td align="right">9</td>
+  <td align="right">0.333</td>
+  <td align="right">0.667</td>
+ </tr>
+ <tr>
+  <td align="right">4</td>
+  <td align="right">6</td>
+  <td align="right">10</td>
+  <td align="right">16</td>
+  <td align="right">0.375</td>
+  <td align="right">0.625</td>
+ </tr>
+ <tr>
+  <td align="right">5</td>
+  <td align="right">10</td>
+  <td align="right">15</td>
+  <td align="right">25</td>
+  <td align="right">0.400</td>
+  <td align="right">0.600</td>
+ </tr>
+ <tr>
+  <td align="right">6</td>
+  <td align="right">15</td>
+  <td align="right">21</td>
+  <td align="right">36</td>
+  <td align="right">0.417</td>
+  <td align="right">0.583</td>
+ </tr>
+ <tr>
+  <td align="right">7</td>
+  <td align="right">21</td>
+  <td align="right">28</td>
+  <td align="right">49</td>
+  <td align="right">0.429</td>
+  <td align="right">0.571</td>
+ </tr>
+ <tr>
+  <td align="right">8</td>
+  <td align="right">28</td>
+  <td align="right">36</td>
+  <td align="right">64</td>
+  <td align="right">0.438</td>
+  <td align="right">0.563</td>
+ </tr>
+ <tr>
+  <td align="right">9</td>
+  <td align="right">36</td>
+  <td align="right">45</td>
+  <td align="right">81</td>
+  <td align="right">0.444</td>
+  <td align="right">0.556</td>
+ </tr>
+ <tr>
+  <td align="right">10</td>
+  <td align="right">45</td>
+  <td align="right">55</td>
+  <td align="right">100</td>
+  <td align="right">0.450</td>
+  <td align="right">0.550</td>
+ </tr>
+ <tr>
+  <td align="right">11</td>
+  <td align="right">55</td>
+  <td align="right">66</td>
+  <td align="right">121</td>
+  <td align="right">0.455</td>
+  <td align="right">0.545</td>
+ </tr>
+ <tr>
+  <td align="right">12</td>
+  <td align="right">66</td>
+  <td align="right">78</td>
+  <td align="right">144</td>
+  <td align="right">0.458</td>
+  <td align="right">0.542</td>
+ </tr>
+ <tr>
+  <td align="right">13</td>
+  <td align="right">78</td>
+  <td align="right">91</td>
+  <td align="right">169</td>
+  <td align="right">0.462</td>
+  <td align="right">0.538</td>
+ </tr>
+ <tr>
+  <td align="right">14</td>
+  <td align="right">91</td>
+  <td align="right">105</td>
+  <td align="right">196</td>
+  <td align="right">0.464</td>
+  <td align="right">0.536</td>
+ </tr>
+ <tr>
+  <td align="right">15</td>
+  <td align="right">105</td>
+  <td align="right">120</td>
+  <td align="right">225</td>
+  <td align="right">0.467</td>
+  <td align="right">0.533</td>
+ </tr>
+ <tr>
+  <td align="right">16</td>
+  <td align="right">120</td>
+  <td align="right">136</td>
+  <td align="right">256</td>
+  <td align="right">0.469</td>
+  <td align="right">0.531</td>
+ </tr>
+ <tr>
+  <td align="right">17</td>
+  <td align="right">136</td>
+  <td align="right">153</td>
+  <td align="right">289</td>
+  <td align="right">0.471</td>
+  <td align="right">0.529</td>
+ </tr>
+ <tr>
+  <td align="right">18</td>
+  <td align="right">153</td>
+  <td align="right">171</td>
+  <td align="right">324</td>
+  <td align="right">0.472</td>
+  <td align="right">0.528</td>
+ </tr>
+ <tr>
+  <td align="right">19</td>
+  <td align="right">171</td>
+  <td align="right">190</td>
+  <td align="right">361</td>
+  <td align="right">0.474</td>
+  <td align="right">0.526</td>
+ </tr>
+ <tr>
+  <td align="right">20</td>
+  <td align="right">190</td>
+  <td align="right">210</td>
+  <td align="right">400</td>
+  <td align="right">0.475</td>
+  <td align="right">0.525</td>
+ </tr>
+ <tr>
+  <td align="right">21</td>
+  <td align="right">210</td>
+  <td align="right">231</td>
+  <td align="right">441</td>
+  <td align="right">0.476</td>
+  <td align="right">0.524</td>
+ </tr>
+ <tr>
+  <td align="right">22</td>
+  <td align="right">231</td>
+  <td align="right">253</td>
+  <td align="right">484</td>
+  <td align="right">0.477</td>
+  <td align="right">0.523</td>
+ </tr>
+ <tr>
+  <td align="right">23</td>
+  <td align="right">253</td>
+  <td align="right">276</td>
+  <td align="right">529</td>
+  <td align="right">0.478</td>
+  <td align="right">0.522</td>
+ </tr>
+ <tr>
+  <td align="right">24</td>
+  <td align="right">276</td>
+  <td align="right">300</td>
+  <td align="right">576</td>
+  <td align="right">0.479</td>
+  <td align="right">0.521</td>
+ </tr>
+ <tr>
+  <td align="right">25</td>
+  <td align="right">300</td>
+  <td align="right">325</td>
+  <td align="right">625</td>
+  <td align="right">0.480</td>
+  <td align="right">0.520</td>
+ </tr>
+ <tr>
+  <td align="right">26</td>
+  <td align="right">325</td>
+  <td align="right">351</td>
+  <td align="right">676</td>
+  <td align="right">0.481</td>
+  <td align="right">0.519</td>
+ </tr>
+ <tr>
+  <td align="right">27</td>
+  <td align="right">351</td>
+  <td align="right">378</td>
+  <td align="right">729</td>
+  <td align="right">0.481</td>
+  <td align="right">0.519</td>
+ </tr>
+ <tr>
+  <td align="right">28</td>
+  <td align="right">378</td>
+  <td align="right">406</td>
+  <td align="right">784</td>
+  <td align="right">0.482</td>
+  <td align="right">0.518</td>
+ </tr>
+ <tr>
+  <td align="right">29</td>
+  <td align="right">406</td>
+  <td align="right">435</td>
+  <td align="right">841</td>
+  <td align="right">0.483</td>
+  <td align="right">0.517</td>
+ </tr>
+ <tr>
+  <td align="right">30</td>
+  <td align="right">435</td>
+  <td align="right">465</td>
+  <td align="right">900</td>
+  <td align="right">0.483</td>
+  <td align="right">0.517</td>
+ </tr>
+
+</tbody>
+ </table>
+
+<p></p>
+	<p>Assume all 30 days are equally likely to be policy start dates, the expected proportion for age x-1 is 0.433 and age x is 0.567.&nbsp;</p>
+	<p>Since the exposure is halved, we allocate 0.217 months of exposure to age x-1 and 0.283 to age x at policy start month.</p>
+	<p></p>
+	<h3>Sidenote - Proof</h3>
+	<p>We show the proof for sum of n-1 and sum of n equals n<sup>2</sup> for n&gt;0. &nbsp;</p>
+	<figure><img alt="arithmetic proof" title="arithmetic proof" src="file://C:/Users/Admin/Documents/Blog/20251226_exposed_to_risk/arithmetic_proof.jpg"/>
+    <figcaption>arithmetic proof</figcaption>
+  </figure>
+	<h3>Conclusion</h3>
+	<p>We provide the calculation for exposed to risk age allocation at policy start month where only month-level granularity data is provided for both birth and policy start months - we allocate 0.217 exposure month to age x-1, and 0.283 to age x. In deriving the results, we observe an interesting mathematical pattern based on arithmetic series whereby we provide a simple proof.&nbsp;</p>
+
+</main>
+
+    <!-- dark-mode-toggle -->
+    <dark-mode-toggle permanent style="position: absolute; top: 0; border: 0; left: 1rem" mode="light" appearance="toggle"></dark-mode-toggle>
+    <script type="module" src="style/dark-mode-toggle.min.mjs"></script>
+    <script>
+      const toggle = document.querySelector("dark-mode-toggle");
+
+      // Set or remove the mode classes the first time:
+      if (toggle.mode === "dark") {
+        document.documentElement.classList.add("holiday-css-dark");
+      } else if (toggle.mode === "light") {
+        document.documentElement.classList.add("holiday-css-light");
+      }
+
+      // Listen for toggle changes (which includes `prefers-color-scheme`
+      // changes) and toggle the `dark` class accordingly:
+      toggle.addEventListener("colorschemechange", () => {
+        document.documentElement.classList.toggle(
+          "holiday-css-dark",
+          toggle.mode === "dark",
+        );
+        document.documentElement.classList.toggle(
+          "holiday-css-light",
+          toggle.mode === "light",
+        );
+      });
+    </script>
+
+</body></html>
