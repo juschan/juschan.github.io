@@ -14,307 +14,307 @@
   </header>
     <nav>
       <ul>
-        <li><a href="#" aria-current="page">Home</a></li>
-        <li><a href="#">About Me</a></li>
-        <li><a href="#">Blogs</a></li>
-        <li>
-          <span>Menu</span>
-          <ul>
-            <li><a href="#">Link 1</a></li>
-            <li><a href="#">Link 2</a></li>
-            <li><a href="#">Link 3</a></li>
-          </ul>
-        </li>
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../about.html">About Me</a></li>
+        <li><a href="../articles_blogs.html" aria-current="page">Article / Blogs</a></li>
       </ul>
     </nav>
   <main>
     <h2>Exposed to Risk - Age Allocation at Policy Start Month Given Month-level Data</h2>
-	<p>Last updated: 28-12-2025</p>
+	<p>Last updated: 06-01-2025</p>
 	<h3>Summary</h3>
 	<p>Mathematical derivation of exposed to risk where both birth dates and policy start dates occurring in the same month, for policy start month where month-level granularity data is provided.</p>
 	<p></p>
 	<h3>Introduction</h3>
-	<p>Exposed to risk is commonly required when deriving mortality rates (as part mortality studies). In the event that the policy start date (eg. April 2021) is provided at month-level granularity (ie. no day is given), we allocate 0.5 month exposure the policy start month. We investigate the further split this exposure by age, specifically when the birth month occurs in same month as policy start month.</p>
+	<p>Exposed to risk is commonly required when deriving mortality rates (as part mortality studies). In the event that the policy start date (eg. April 2022) is provided at month-level granularity (ie. no day is given), we allocate 0.5 month exposure the policy start month. We investigate the further split this exposure by age, specifically when the birth month occurs in same month as policy start month.</p>
 	<p></p>
 	<h3>Example</h3>
-	<p>Consider an individual whose birth month is April 1980, and purchases a term policy on April 2021. It is not known the exact date that he purchased the policy, so all 30 days (in April) are equally likely. We look at all possible 30 policy start dates and perform some counting to determine the different ways that the age allocation can work out in each instance. It is easier to work backwards from 30th April in this case because we know at the latest, the life must be age 41 on 30 April 2021. Assume age last birthday definition.</p>
-	<p></p>
-	<figure>
-    <img alt="exposed to risk age allocations" title="exposed to risk age allocations" src="./exposed_to_risk_age_allocations.jpg"/>
-    <figcaption>Fig 1: Exposed to risk age allocations</figcaption>
+	<p>Consider an individual whose birth month is April 1980, and purchases a term policy on April 2022. It is not known the exact date that he purchased the policy, so all 30 days (in April) are equally likely. We look at all possible 30 policy start dates and perform some counting to determine the different ways that the age allocation can work out in each instance. The figure below shows the different possible ages and start dates (ie. the individual will turn 42 on one of the 30 days. Assume age last birthday definition.&nbsp;&nbsp;</p>
+		
+		<figure><img alt title="Fig 1: All possible start dates and birth dates in April" src="./all_birthday_in_month.jpg"/>
+    <figcaption>Fig 1: All possible start dates and birth dates in April</figcaption>
   </figure>
-	<p>From the diagram above, we see that both the count of age 40 and 41 follow an arithmetic series (ie. sum of n-1 and&nbsp;n). Total counts are n<sup>2</sup>. We further summarise our results for all 30 days and determine the proportion of age x-1 and age x to 3 decimal places.</p>
-	<p></p>
-	<h3>&nbsp;Exposed to Risk Allocation by Age on Policy Start Month&nbsp;</h3><table border="0">
+		<p></p>
+		<p></p>
+		<p>From here, we work backwards for each policy start date starting from 30th April, because we know at the latest, the life must be age 42 on 30 April 2022.</p>
+	<figure>
+    <img alt title="Fig 1: Exposed to risk age allocations" src="./exposed_to_risk_age_allocations_v2.jpg"/>
+    <figcaption>Fig 2: Exposed to risk age allocations</figcaption>
+  </figure>
+	<figure>
+    
+    <figcaption>exposed to risk age allocations</figcaption>
+  </figure>
+	<p>From the figure above, we can calculate for each equally likely policy start date, the number of days spent in ages 41 (ie. age x-1) and 42 (ie. age x). We note that the count of age 41 follows an arithmetic series Total counts are 30n. We generalize our results for all 30 days and determine the proportion of age x-1 and age x to 3 decimal places.</p>
+	<p>. We generalize our results for all 30 days and determine the proportion of age x-1 and age x to 3 decimal places.</p>
+	<h3>&nbsp;Exposed to Risk Allocation by Age on Policy Start Month&nbsp;</h3>
 
- 
-  
+<p>
+
+</p><table border="0">
  <tbody><tr>
   <td>n</td>
-  <td>Count of age,
-  x-1</td>
-  <td>Count of age, x</td>
-  <td>Total Count</td>
-  <td>Proportion of
-  Age x-1</td>
-  <td>Proportion of
-  Age x</td>
+  <td>Date</td>
+  <td>(A) Total Cells</td>
+  <td>(B) Cells with Age 41</td>
+  <td>(C) Cells with Age 42, (A) - (B)</td>
+  <td>(D) Proportion of Cells Age 42, (C )/(A)</td>
  </tr>
  <tr>
   <td align="right">1</td>
+  <td align="right">30-Apr-22</td>
+  <td align="right">30</td>
   <td align="right">0</td>
-  <td align="right">1</td>
-  <td align="right">1</td>
-  <td align="right">0.000</td>
+  <td align="right">30</td>
   <td align="right">1.000</td>
  </tr>
  <tr>
   <td align="right">2</td>
+  <td align="right">01-May-22</td>
+  <td align="right">60</td>
   <td align="right">1</td>
-  <td align="right">3</td>
-  <td align="right">4</td>
-  <td align="right">0.250</td>
-  <td align="right">0.750</td>
+  <td align="right">59</td>
+  <td align="right">0.983</td>
  </tr>
  <tr>
   <td align="right">3</td>
+  <td align="right">02-May-22</td>
+  <td align="right">90</td>
   <td align="right">3</td>
-  <td align="right">6</td>
-  <td align="right">9</td>
-  <td align="right">0.333</td>
-  <td align="right">0.667</td>
+  <td align="right">87</td>
+  <td align="right">0.967</td>
  </tr>
  <tr>
   <td align="right">4</td>
+  <td align="right">03-May-22</td>
+  <td align="right">120</td>
   <td align="right">6</td>
-  <td align="right">10</td>
-  <td align="right">16</td>
-  <td align="right">0.375</td>
-  <td align="right">0.625</td>
+  <td align="right">114</td>
+  <td align="right">0.950</td>
  </tr>
  <tr>
   <td align="right">5</td>
+  <td align="right">04-May-22</td>
+  <td align="right">150</td>
   <td align="right">10</td>
-  <td align="right">15</td>
-  <td align="right">25</td>
-  <td align="right">0.400</td>
-  <td align="right">0.600</td>
+  <td align="right">140</td>
+  <td align="right">0.933</td>
  </tr>
  <tr>
   <td align="right">6</td>
+  <td align="right">05-May-22</td>
+  <td align="right">180</td>
   <td align="right">15</td>
-  <td align="right">21</td>
-  <td align="right">36</td>
-  <td align="right">0.417</td>
-  <td align="right">0.583</td>
+  <td align="right">165</td>
+  <td align="right">0.917</td>
  </tr>
  <tr>
   <td align="right">7</td>
+  <td align="right">06-May-22</td>
+  <td align="right">210</td>
   <td align="right">21</td>
-  <td align="right">28</td>
-  <td align="right">49</td>
-  <td align="right">0.429</td>
-  <td align="right">0.571</td>
+  <td align="right">189</td>
+  <td align="right">0.900</td>
  </tr>
  <tr>
   <td align="right">8</td>
+  <td align="right">07-May-22</td>
+  <td align="right">240</td>
   <td align="right">28</td>
-  <td align="right">36</td>
-  <td align="right">64</td>
-  <td align="right">0.438</td>
-  <td align="right">0.563</td>
+  <td align="right">212</td>
+  <td align="right">0.883</td>
  </tr>
  <tr>
   <td align="right">9</td>
+  <td align="right">08-May-22</td>
+  <td align="right">270</td>
   <td align="right">36</td>
-  <td align="right">45</td>
-  <td align="right">81</td>
-  <td align="right">0.444</td>
-  <td align="right">0.556</td>
+  <td align="right">234</td>
+  <td align="right">0.867</td>
  </tr>
  <tr>
   <td align="right">10</td>
+  <td align="right">09-May-22</td>
+  <td align="right">300</td>
   <td align="right">45</td>
-  <td align="right">55</td>
-  <td align="right">100</td>
-  <td align="right">0.450</td>
-  <td align="right">0.550</td>
+  <td align="right">255</td>
+  <td align="right">0.850</td>
  </tr>
  <tr>
   <td align="right">11</td>
+  <td align="right">10-May-22</td>
+  <td align="right">330</td>
   <td align="right">55</td>
-  <td align="right">66</td>
-  <td align="right">121</td>
-  <td align="right">0.455</td>
-  <td align="right">0.545</td>
+  <td align="right">275</td>
+  <td align="right">0.833</td>
  </tr>
  <tr>
   <td align="right">12</td>
+  <td align="right">11-May-22</td>
+  <td align="right">360</td>
   <td align="right">66</td>
-  <td align="right">78</td>
-  <td align="right">144</td>
-  <td align="right">0.458</td>
-  <td align="right">0.542</td>
+  <td align="right">294</td>
+  <td align="right">0.817</td>
  </tr>
  <tr>
   <td align="right">13</td>
+  <td align="right">12-May-22</td>
+  <td align="right">390</td>
   <td align="right">78</td>
-  <td align="right">91</td>
-  <td align="right">169</td>
-  <td align="right">0.462</td>
-  <td align="right">0.538</td>
+  <td align="right">312</td>
+  <td align="right">0.800</td>
  </tr>
  <tr>
   <td align="right">14</td>
+  <td align="right">13-May-22</td>
+  <td align="right">420</td>
   <td align="right">91</td>
-  <td align="right">105</td>
-  <td align="right">196</td>
-  <td align="right">0.464</td>
-  <td align="right">0.536</td>
+  <td align="right">329</td>
+  <td align="right">0.783</td>
  </tr>
  <tr>
   <td align="right">15</td>
+  <td align="right">14-May-22</td>
+  <td align="right">450</td>
   <td align="right">105</td>
-  <td align="right">120</td>
-  <td align="right">225</td>
-  <td align="right">0.467</td>
-  <td align="right">0.533</td>
+  <td align="right">345</td>
+  <td align="right">0.767</td>
  </tr>
  <tr>
   <td align="right">16</td>
+  <td align="right">15-May-22</td>
+  <td align="right">480</td>
   <td align="right">120</td>
-  <td align="right">136</td>
-  <td align="right">256</td>
-  <td align="right">0.469</td>
-  <td align="right">0.531</td>
+  <td align="right">360</td>
+  <td align="right">0.750</td>
  </tr>
  <tr>
   <td align="right">17</td>
+  <td align="right">16-May-22</td>
+  <td align="right">510</td>
   <td align="right">136</td>
-  <td align="right">153</td>
-  <td align="right">289</td>
-  <td align="right">0.471</td>
-  <td align="right">0.529</td>
+  <td align="right">374</td>
+  <td align="right">0.733</td>
  </tr>
  <tr>
   <td align="right">18</td>
+  <td align="right">17-May-22</td>
+  <td align="right">540</td>
   <td align="right">153</td>
-  <td align="right">171</td>
-  <td align="right">324</td>
-  <td align="right">0.472</td>
-  <td align="right">0.528</td>
+  <td align="right">387</td>
+  <td align="right">0.717</td>
  </tr>
  <tr>
   <td align="right">19</td>
+  <td align="right">18-May-22</td>
+  <td align="right">570</td>
   <td align="right">171</td>
-  <td align="right">190</td>
-  <td align="right">361</td>
-  <td align="right">0.474</td>
-  <td align="right">0.526</td>
+  <td align="right">399</td>
+  <td align="right">0.700</td>
  </tr>
  <tr>
   <td align="right">20</td>
+  <td align="right">19-May-22</td>
+  <td align="right">600</td>
   <td align="right">190</td>
-  <td align="right">210</td>
-  <td align="right">400</td>
-  <td align="right">0.475</td>
-  <td align="right">0.525</td>
+  <td align="right">410</td>
+  <td align="right">0.683</td>
  </tr>
  <tr>
   <td align="right">21</td>
+  <td align="right">20-May-22</td>
+  <td align="right">630</td>
   <td align="right">210</td>
-  <td align="right">231</td>
-  <td align="right">441</td>
-  <td align="right">0.476</td>
-  <td align="right">0.524</td>
+  <td align="right">420</td>
+  <td align="right">0.667</td>
  </tr>
  <tr>
   <td align="right">22</td>
+  <td align="right">21-May-22</td>
+  <td align="right">660</td>
   <td align="right">231</td>
-  <td align="right">253</td>
-  <td align="right">484</td>
-  <td align="right">0.477</td>
-  <td align="right">0.523</td>
+  <td align="right">429</td>
+  <td align="right">0.650</td>
  </tr>
  <tr>
   <td align="right">23</td>
+  <td align="right">22-May-22</td>
+  <td align="right">690</td>
   <td align="right">253</td>
-  <td align="right">276</td>
-  <td align="right">529</td>
-  <td align="right">0.478</td>
-  <td align="right">0.522</td>
+  <td align="right">437</td>
+  <td align="right">0.633</td>
  </tr>
  <tr>
   <td align="right">24</td>
+  <td align="right">23-May-22</td>
+  <td align="right">720</td>
   <td align="right">276</td>
-  <td align="right">300</td>
-  <td align="right">576</td>
-  <td align="right">0.479</td>
-  <td align="right">0.521</td>
+  <td align="right">444</td>
+  <td align="right">0.617</td>
  </tr>
  <tr>
   <td align="right">25</td>
+  <td align="right">24-May-22</td>
+  <td align="right">750</td>
   <td align="right">300</td>
-  <td align="right">325</td>
-  <td align="right">625</td>
-  <td align="right">0.480</td>
-  <td align="right">0.520</td>
+  <td align="right">450</td>
+  <td align="right">0.600</td>
  </tr>
  <tr>
   <td align="right">26</td>
+  <td align="right">25-May-22</td>
+  <td align="right">780</td>
   <td align="right">325</td>
-  <td align="right">351</td>
-  <td align="right">676</td>
-  <td align="right">0.481</td>
-  <td align="right">0.519</td>
+  <td align="right">455</td>
+  <td align="right">0.583</td>
  </tr>
  <tr>
   <td align="right">27</td>
+  <td align="right">26-May-22</td>
+  <td align="right">810</td>
   <td align="right">351</td>
-  <td align="right">378</td>
-  <td align="right">729</td>
-  <td align="right">0.481</td>
-  <td align="right">0.519</td>
+  <td align="right">459</td>
+  <td align="right">0.567</td>
  </tr>
  <tr>
   <td align="right">28</td>
+  <td align="right">27-May-22</td>
+  <td align="right">840</td>
   <td align="right">378</td>
-  <td align="right">406</td>
-  <td align="right">784</td>
-  <td align="right">0.482</td>
-  <td align="right">0.518</td>
+  <td align="right">462</td>
+  <td align="right">0.550</td>
  </tr>
  <tr>
   <td align="right">29</td>
+  <td align="right">28-May-22</td>
+  <td align="right">870</td>
   <td align="right">406</td>
-  <td align="right">435</td>
-  <td align="right">841</td>
-  <td align="right">0.483</td>
-  <td align="right">0.517</td>
+  <td align="right">464</td>
+  <td align="right">0.533</td>
  </tr>
  <tr>
   <td align="right">30</td>
+  <td align="right">29-May-22</td>
+  <td align="right">900</td>
   <td align="right">435</td>
   <td align="right">465</td>
-  <td align="right">900</td>
-  <td align="right">0.483</td>
   <td align="right">0.517</td>
  </tr>
 
-</tbody>
- </table>
+</tbody></table>
 
 <p></p>
-	<p>Assume all 30 days are equally likely to be policy start dates, the expected proportion for age x-1 is 0.433 and age x is 0.567.&nbsp;</p>
-	<p>Since the exposure is halved, we allocate 0.217 months of exposure to age x-1 and 0.283 to age x at policy start month.</p>
+		<p>Assume all 30 days are equally likely to be policy start dates, the expected proportion for age x-1 is 0.242 and age x is 0.758.&nbsp;</p>
+	<p>Since the exposure is halved, we allocate 0.121 months of exposure to age x-1 and 0.379 to age x at policy start month.</p>
 	<p></p>
 	<h3>Sidenote - Proof</h3>
-	<p>We show the proof for sum of n-1 and sum of n equals n<sup>2</sup> for n&gt;0. &nbsp;</p>
-	<figure><img alt="arithmetic proof" title="arithmetic proof" src="./arithmetic_proof.jpg"/>
-    <figcaption>Fig 2: Proof</figcaption>
+	<p>We note that in Figure 1 and table above where we see all 30 policy start dates, it also shows an arithmetic series (ie. for n = 30, count of age x = 465, which is the arithmetic sum from 1 to 30). Total cells is&nbsp; n<sup>2</sup></p>
+		<p>We show the proof for sum of n-1 and sum of n equals n<sup>2</sup> for n&gt;0. &nbsp;</p>
+&nbsp;<figure>
+    <img alt="arithmetic proof" title="Figure 3: Proof" src="./arithmetic_proof.jpg"/>
+    <figcaption>Figure 3: Proof</figcaption>
   </figure>
-	<h3>Conclusion</h3>
-	<p>We provide the calculation for exposed to risk age allocation at policy start month where only month-level granularity data is provided for both birth and policy start months - we allocate 0.217 exposure month to age x-1, and 0.283 to age x. In deriving the results, we observe an interesting mathematical pattern based on arithmetic series whereby we provide a simple proof.&nbsp;</p>
+	<p>We provide the calculation for exposed to risk age allocation at policy start month where only month-level granularity data is provided for both birth and policy start months - we allocate 0.121 exposure month to age x-1, and 0.379 to age x. In deriving the results, we observe an interesting mathematical pattern based on arithmetic series where we provide a simple proof.&nbsp;</p>
 
 </main>
 
