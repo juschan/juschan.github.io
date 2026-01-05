@@ -1,0 +1,1037 @@
+﻿<html lang="en" class="holiday-css-light"><head>
+
+    <meta charset="utf-8"/>
+    <title>Justin Chan's Blog</title>
+    <meta name="description" content/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" href="../style/holiday.css@0.11.css"/>
+  </head>
+
+  <body>
+  <header>
+      <h1>Justin Chan's Blog
+      </h1>
+  </header>
+    <nav>
+      <ul>
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../about.html">About Me</a></li>
+        <li><a href="../articles_blogs.html" aria-current="page">Article / Blogs</a></li>
+      </ul>
+    </nav>
+  <main>
+    <h2>Exposed to Risk - Decrements</h2>
+    <p>Last updated: 06-01-2025</p>
+	<p></p>
+  <p></p>
+	<h3>Summary</h3>
+	<p>We explore exposed to risk allocations in the event of decrements, and where data is provided at month-level granularity. </p>
+	<p>Git repo with support code <a href="https://github.com/juschan/exposedtorisk/blob/main/ETR_Decrements.ipynb">here</a>.
+  <p>Previous investigations into exposed to risk for policy starts provides useful background information. Available <a href="../20251226_exposed_to_risk/exposed_to_risk_policy_start.html">here</a>.</p>
+		
+	<p></p>
+  <p></p>
+	<h3>Introduction</h3>
+	<p>Exposed to risk is commonly required when deriving mortality rates (as part mortality studies). We look at how exposure is allocated between ages and duration when decrements occur on these anniversaries, along with policy start months. Specifically, we look at:&nbsp;</p><ol><li>Either the birth month or policy anniversary month occur in the month of decrement.</li><li>Both the birth month and policy anniversary month occur in the month of decrement.</li><li>The policy start and decrement occurs in the same month.</li><li>The birth month, policy start and decrement occur in the same month.</li></ol><p></p>
+	
+  <p></p>
+  <p></p>
+
+		<h3>Scenario 1: Either the birth month or policy anniversary month occur in the month of decrement</h3><p>For central exposed to risk calculations, we allocate overall, 0.5 month exposure where a decrement occurred. </p>
+		<p>We assume the birthday (or policy anniversary) must occur on one of the days and are all equally likely. Assume 30 days in a month.</p><p>We enumerate all possible days where birthdays can occur (and generalise this case for policy anniversary later). We then start counting the cells if the decrement happens on day 1, 2 etc. &nbsp;Since each day is equally likely, we average the occurrence of each age and find their proportions. The figure below attempts to explain when decrement occurs on day 1, 2 etc.</p>
+		<figure>
+    <img alt title="Figure 1: Scenario 1 - Age and Decrement Day" src="./scenario_1_age_decrement.jpg"/>
+    <figcaption>Figure 1: Scenario 1 - Age and Decrement Day</figcaption>
+  </figure>
+		
+		<p></p>
+		<p>From here, we can observe arithmetic series for Age 42 occurrences based on decrement day. We summarise this in the table below, generalised using age x-1 and x.</p>
+		<p>
+
+</p><table border="0">
+ <tbody><tr>
+  <td>n</td>
+  <td>(A) Total Cells</td>
+  <td>(B) Cells with Age x&nbsp;</td>
+  <td>(C ) Cells with Age x-1, (A)-(B)&nbsp;</td>
+  <td>Proportion of Cells Age x-1, (C )/(A)</td>
+ </tr>
+ <tr>
+  <td align="right">1</td>
+  <td align="right">30</td>
+  <td align="right">1</td>
+  <td align="right">29</td>
+  <td align="right">0.967</td>
+ </tr>
+ <tr>
+  <td align="right">2</td>
+  <td align="right">60</td>
+  <td align="right">3</td>
+  <td align="right">57</td>
+  <td align="right">0.950</td>
+ </tr>
+ <tr>
+  <td align="right">3</td>
+  <td align="right">90</td>
+  <td align="right">6</td>
+  <td align="right">84</td>
+  <td align="right">0.933</td>
+ </tr>
+ <tr>
+  <td align="right">4</td>
+  <td align="right">120</td>
+  <td align="right">10</td>
+  <td align="right">110</td>
+  <td align="right">0.917</td>
+ </tr>
+ <tr>
+  <td align="right">5</td>
+  <td align="right">150</td>
+  <td align="right">15</td>
+  <td align="right">135</td>
+  <td align="right">0.900</td>
+ </tr>
+ <tr>
+  <td align="right">6</td>
+  <td align="right">180</td>
+  <td align="right">21</td>
+  <td align="right">159</td>
+  <td align="right">0.883</td>
+ </tr>
+ <tr>
+  <td align="right">7</td>
+  <td align="right">210</td>
+  <td align="right">28</td>
+  <td align="right">182</td>
+  <td align="right">0.867</td>
+ </tr>
+ <tr>
+  <td align="right">8</td>
+  <td align="right">240</td>
+  <td align="right">36</td>
+  <td align="right">204</td>
+  <td align="right">0.850</td>
+ </tr>
+ <tr>
+  <td align="right">9</td>
+  <td align="right">270</td>
+  <td align="right">45</td>
+  <td align="right">225</td>
+  <td align="right">0.833</td>
+ </tr>
+ <tr>
+  <td align="right">10</td>
+  <td align="right">300</td>
+  <td align="right">55</td>
+  <td align="right">245</td>
+  <td align="right">0.817</td>
+ </tr>
+ <tr>
+  <td align="right">11</td>
+  <td align="right">330</td>
+  <td align="right">66</td>
+  <td align="right">264</td>
+  <td align="right">0.800</td>
+ </tr>
+ <tr>
+  <td align="right">12</td>
+  <td align="right">360</td>
+  <td align="right">78</td>
+  <td align="right">282</td>
+  <td align="right">0.783</td>
+ </tr>
+ <tr>
+  <td align="right">13</td>
+  <td align="right">390</td>
+  <td align="right">91</td>
+  <td align="right">299</td>
+  <td align="right">0.767</td>
+ </tr>
+ <tr>
+  <td align="right">14</td>
+  <td align="right">420</td>
+  <td align="right">105</td>
+  <td align="right">315</td>
+  <td align="right">0.750</td>
+ </tr>
+ <tr>
+  <td align="right">15</td>
+  <td align="right">450</td>
+  <td align="right">120</td>
+  <td align="right">330</td>
+  <td align="right">0.733</td>
+ </tr>
+ <tr>
+  <td align="right">16</td>
+  <td align="right">480</td>
+  <td align="right">136</td>
+  <td align="right">344</td>
+  <td align="right">0.717</td>
+ </tr>
+ <tr>
+  <td align="right">17</td>
+  <td align="right">510</td>
+  <td align="right">153</td>
+  <td align="right">357</td>
+  <td align="right">0.700</td>
+ </tr>
+ <tr>
+  <td align="right">18</td>
+  <td align="right">540</td>
+  <td align="right">171</td>
+  <td align="right">369</td>
+  <td align="right">0.683</td>
+ </tr>
+ <tr>
+  <td align="right">19</td>
+  <td align="right">570</td>
+  <td align="right">190</td>
+  <td align="right">380</td>
+  <td align="right">0.667</td>
+ </tr>
+ <tr>
+  <td align="right">20</td>
+  <td align="right">600</td>
+  <td align="right">210</td>
+  <td align="right">390</td>
+  <td align="right">0.650</td>
+ </tr>
+ <tr>
+  <td align="right">21</td>
+  <td align="right">630</td>
+  <td align="right">231</td>
+  <td align="right">399</td>
+  <td align="right">0.633</td>
+ </tr>
+ <tr>
+  <td align="right">22</td>
+  <td align="right">660</td>
+  <td align="right">253</td>
+  <td align="right">407</td>
+  <td align="right">0.617</td>
+ </tr>
+ <tr>
+  <td align="right">23</td>
+  <td align="right">690</td>
+  <td align="right">276</td>
+  <td align="right">414</td>
+  <td align="right">0.600</td>
+ </tr>
+ <tr>
+  <td align="right">24</td>
+  <td align="right">720</td>
+  <td align="right">300</td>
+  <td align="right">420</td>
+  <td align="right">0.583</td>
+ </tr>
+ <tr>
+  <td align="right">25</td>
+  <td align="right">750</td>
+  <td align="right">325</td>
+  <td align="right">425</td>
+  <td align="right">0.567</td>
+ </tr>
+ <tr>
+  <td align="right">26</td>
+  <td align="right">780</td>
+  <td align="right">351</td>
+  <td align="right">429</td>
+  <td align="right">0.550</td>
+ </tr>
+ <tr>
+  <td align="right">27</td>
+  <td align="right">810</td>
+  <td align="right">378</td>
+  <td align="right">432</td>
+  <td align="right">0.533</td>
+ </tr>
+ <tr>
+  <td align="right">28</td>
+  <td align="right">840</td>
+  <td align="right">406</td>
+  <td align="right">434</td>
+  <td align="right">0.517</td>
+ </tr>
+ <tr>
+  <td align="right">29</td>
+  <td align="right">870</td>
+  <td align="right">435</td>
+  <td align="right">435</td>
+  <td align="right">0.500</td>
+ </tr>
+ <tr>
+  <td align="right">30</td>
+  <td align="right">900</td>
+  <td align="right">465</td>
+  <td align="right">435</td>
+  <td align="right">0.483</td>
+ </tr>
+</tbody></table>
+
+<p>The average proportion for age x-1 is 0.725 and for age x is 0.275. Given the 0.5 month exposure in the decrement month, we divide these results by 0.5. </p>
+		<p>Therefore, exposure for age x-1 is 0.363 and for age x is 0.138. Similarly, duration for duration d-1 is 0.363 and for duration d is 0.138.</p>
+		<p></p>
+    <p></p>
+    <h3>Scenario 2: Both the birth month and policy anniversary month occur in the month of decrement</h3>
+		<p>For central exposed to risk calculations, we allocate, on average, 0.5 months where the decrement occurred. &nbsp;We assume:</p><p>- the birthday must occur on one of the days and are all equally likely. &nbsp;</p><p>- the policy must occur on one of the days and are all equally likely. &nbsp;</p><p>Assume 30 days in a month.</p><p>We enumerate all possible days where birthdays can occur. Each possible birthday will then have 30 other associated policy anniversary dates in that month. We then start counting cells if the decrement happens on day 1, 2 etc. &nbsp;The figure below shows an example for decrement on day 1 and 2, and the associated ages (41 or 42) and duration (6 or 7).&nbsp;</p>
+		<figure>
+    <img alt title="Figure 2: Scenario 2 - Age-Duration Combination for Decrement Day 1 and 2" src="./scenario_2_age_duration_decrement.jpg"/>
+    <figcaption>Figure 2: Scenario 2 - Age-Duration Combination for Decrement Day 1 and 2</figcaption>
+  </figure>
+		<p></p><p>Since decrement is equally likely for each day, we calculate count the occurrences of the 4 combinations (age x-1 and x, duration d-1 and d) and find their proportions. Details in notebook. Table below shows the results.&nbsp;</p>
+		<p>&nbsp;
+
+</p><table border="0">
+ <tbody><tr>
+  <td>n</td>
+  <td>Count of (age x-1, duration d-1)</td>
+  <td>Count of (age x-1, duration d)</td>
+  <td>Count of (age x, duration d-1)</td>
+  <td>Count of (age x, duration d)</td>
+  <td>Row Total</td>
+  <td>Proportion for (x-1, d-1)</td>
+  <td>Proportion for (x-1, d)</td>
+  <td>Proportion for (x, d-1)</td>
+  <td>Proportion for (x, d)</td>
+ </tr>
+ <tr>
+  <td align="right">1</td>
+  <td align="right">841</td>
+  <td align="right">29</td>
+  <td align="right">29</td>
+  <td align="right">1</td>
+  <td align="right">900</td>
+  <td align="right">0.934</td>
+  <td align="right">0.032</td>
+  <td align="right">0.032</td>
+  <td align="right">0.001</td>
+ </tr>
+ <tr>
+  <td align="right">2</td>
+  <td align="right">1625</td>
+  <td align="right">85</td>
+  <td align="right">85</td>
+  <td align="right">5</td>
+  <td align="right">1800</td>
+  <td align="right">0.903</td>
+  <td align="right">0.047</td>
+  <td align="right">0.047</td>
+  <td align="right">0.003</td>
+ </tr>
+ <tr>
+  <td align="right">3</td>
+  <td align="right">2354</td>
+  <td align="right">166</td>
+  <td align="right">166</td>
+  <td align="right">14</td>
+  <td align="right">2700</td>
+  <td align="right">0.872</td>
+  <td align="right">0.061</td>
+  <td align="right">0.061</td>
+  <td align="right">0.005</td>
+ </tr>
+ <tr>
+  <td align="right">4</td>
+  <td align="right">3030</td>
+  <td align="right">270</td>
+  <td align="right">270</td>
+  <td align="right">30</td>
+  <td align="right">3600</td>
+  <td align="right">0.842</td>
+  <td align="right">0.075</td>
+  <td align="right">0.075</td>
+  <td align="right">0.008</td>
+ </tr>
+ <tr>
+  <td align="right">5</td>
+  <td align="right">3655</td>
+  <td align="right">395</td>
+  <td align="right">395</td>
+  <td align="right">55</td>
+  <td align="right">4500</td>
+  <td align="right">0.812</td>
+  <td align="right">0.088</td>
+  <td align="right">0.088</td>
+  <td align="right">0.012</td>
+ </tr>
+ <tr>
+  <td align="right">6</td>
+  <td align="right">4231</td>
+  <td align="right">539</td>
+  <td align="right">539</td>
+  <td align="right">91</td>
+  <td align="right">5400</td>
+  <td align="right">0.784</td>
+  <td align="right">0.100</td>
+  <td align="right">0.100</td>
+  <td align="right">0.017</td>
+ </tr>
+ <tr>
+  <td align="right">7</td>
+  <td align="right">4760</td>
+  <td align="right">700</td>
+  <td align="right">700</td>
+  <td align="right">140</td>
+  <td align="right">6300</td>
+  <td align="right">0.756</td>
+  <td align="right">0.111</td>
+  <td align="right">0.111</td>
+  <td align="right">0.022</td>
+ </tr>
+ <tr>
+  <td align="right">8</td>
+  <td align="right">5244</td>
+  <td align="right">876</td>
+  <td align="right">876</td>
+  <td align="right">204</td>
+  <td align="right">7200</td>
+  <td align="right">0.728</td>
+  <td align="right">0.122</td>
+  <td align="right">0.122</td>
+  <td align="right">0.028</td>
+ </tr>
+ <tr>
+  <td align="right">9</td>
+  <td align="right">5685</td>
+  <td align="right">1065</td>
+  <td align="right">1065</td>
+  <td align="right">285</td>
+  <td align="right">8100</td>
+  <td align="right">0.702</td>
+  <td align="right">0.131</td>
+  <td align="right">0.131</td>
+  <td align="right">0.035</td>
+ </tr>
+ <tr>
+  <td align="right">10</td>
+  <td align="right">6085</td>
+  <td align="right">1265</td>
+  <td align="right">1265</td>
+  <td align="right">385</td>
+  <td align="right">9000</td>
+  <td align="right">0.676</td>
+  <td align="right">0.141</td>
+  <td align="right">0.141</td>
+  <td align="right">0.043</td>
+ </tr>
+ <tr>
+  <td align="right">11</td>
+  <td align="right">6446</td>
+  <td align="right">1474</td>
+  <td align="right">1474</td>
+  <td align="right">506</td>
+  <td align="right">9900</td>
+  <td align="right">0.651</td>
+  <td align="right">0.149</td>
+  <td align="right">0.149</td>
+  <td align="right">0.051</td>
+ </tr>
+ <tr>
+  <td align="right">12</td>
+  <td align="right">6770</td>
+  <td align="right">1690</td>
+  <td align="right">1690</td>
+  <td align="right">650</td>
+  <td align="right">10800</td>
+  <td align="right">0.627</td>
+  <td align="right">0.156</td>
+  <td align="right">0.156</td>
+  <td align="right">0.060</td>
+ </tr>
+ <tr>
+  <td align="right">13</td>
+  <td align="right">7059</td>
+  <td align="right">1911</td>
+  <td align="right">1911</td>
+  <td align="right">819</td>
+  <td align="right">11700</td>
+  <td align="right">0.603</td>
+  <td align="right">0.163</td>
+  <td align="right">0.163</td>
+  <td align="right">0.070</td>
+ </tr>
+ <tr>
+  <td align="right">14</td>
+  <td align="right">7315</td>
+  <td align="right">2135</td>
+  <td align="right">2135</td>
+  <td align="right">1015</td>
+  <td align="right">12600</td>
+  <td align="right">0.581</td>
+  <td align="right">0.169</td>
+  <td align="right">0.169</td>
+  <td align="right">0.081</td>
+ </tr>
+ <tr>
+  <td align="right">15</td>
+  <td align="right">7540</td>
+  <td align="right">2360</td>
+  <td align="right">2360</td>
+  <td align="right">1240</td>
+  <td align="right">13500</td>
+  <td align="right">0.559</td>
+  <td align="right">0.175</td>
+  <td align="right">0.175</td>
+  <td align="right">0.092</td>
+ </tr>
+ <tr>
+  <td align="right">16</td>
+  <td align="right">7736</td>
+  <td align="right">2584</td>
+  <td align="right">2584</td>
+  <td align="right">1496</td>
+  <td align="right">14400</td>
+  <td align="right">0.537</td>
+  <td align="right">0.179</td>
+  <td align="right">0.179</td>
+  <td align="right">0.104</td>
+ </tr>
+ <tr>
+  <td align="right">17</td>
+  <td align="right">7905</td>
+  <td align="right">2805</td>
+  <td align="right">2805</td>
+  <td align="right">1785</td>
+  <td align="right">15300</td>
+  <td align="right">0.517</td>
+  <td align="right">0.183</td>
+  <td align="right">0.183</td>
+  <td align="right">0.117</td>
+ </tr>
+ <tr>
+  <td align="right">18</td>
+  <td align="right">8049</td>
+  <td align="right">3021</td>
+  <td align="right">3021</td>
+  <td align="right">2109</td>
+  <td align="right">16200</td>
+  <td align="right">0.497</td>
+  <td align="right">0.186</td>
+  <td align="right">0.186</td>
+  <td align="right">0.130</td>
+ </tr>
+ <tr>
+  <td align="right">19</td>
+  <td align="right">8170</td>
+  <td align="right">3230</td>
+  <td align="right">3230</td>
+  <td align="right">2470</td>
+  <td align="right">17100</td>
+  <td align="right">0.478</td>
+  <td align="right">0.189</td>
+  <td align="right">0.189</td>
+  <td align="right">0.144</td>
+ </tr>
+ <tr>
+  <td align="right">20</td>
+  <td align="right">8270</td>
+  <td align="right">3430</td>
+  <td align="right">3430</td>
+  <td align="right">2870</td>
+  <td align="right">18000</td>
+  <td align="right">0.459</td>
+  <td align="right">0.191</td>
+  <td align="right">0.191</td>
+  <td align="right">0.159</td>
+ </tr>
+ <tr>
+  <td align="right">21</td>
+  <td align="right">8351</td>
+  <td align="right">3619</td>
+  <td align="right">3619</td>
+  <td align="right">3311</td>
+  <td align="right">18900</td>
+  <td align="right">0.442</td>
+  <td align="right">0.191</td>
+  <td align="right">0.191</td>
+  <td align="right">0.175</td>
+ </tr>
+ <tr>
+  <td align="right">22</td>
+  <td align="right">8415</td>
+  <td align="right">3795</td>
+  <td align="right">3795</td>
+  <td align="right">3795</td>
+  <td align="right">19800</td>
+  <td align="right">0.425</td>
+  <td align="right">0.192</td>
+  <td align="right">0.192</td>
+  <td align="right">0.192</td>
+ </tr>
+ <tr>
+  <td align="right">23</td>
+  <td align="right">8464</td>
+  <td align="right">3956</td>
+  <td align="right">3956</td>
+  <td align="right">4324</td>
+  <td align="right">20700</td>
+  <td align="right">0.409</td>
+  <td align="right">0.191</td>
+  <td align="right">0.191</td>
+  <td align="right">0.209</td>
+ </tr>
+ <tr>
+  <td align="right">24</td>
+  <td align="right">8500</td>
+  <td align="right">4100</td>
+  <td align="right">4100</td>
+  <td align="right">4900</td>
+  <td align="right">21600</td>
+  <td align="right">0.394</td>
+  <td align="right">0.190</td>
+  <td align="right">0.190</td>
+  <td align="right">0.227</td>
+ </tr>
+ <tr>
+  <td align="right">25</td>
+  <td align="right">8525</td>
+  <td align="right">4225</td>
+  <td align="right">4225</td>
+  <td align="right">5525</td>
+  <td align="right">22500</td>
+  <td align="right">0.379</td>
+  <td align="right">0.188</td>
+  <td align="right">0.188</td>
+  <td align="right">0.246</td>
+ </tr>
+ <tr>
+  <td align="right">26</td>
+  <td align="right">8541</td>
+  <td align="right">4329</td>
+  <td align="right">4329</td>
+  <td align="right">6201</td>
+  <td align="right">23400</td>
+  <td align="right">0.365</td>
+  <td align="right">0.185</td>
+  <td align="right">0.185</td>
+  <td align="right">0.265</td>
+ </tr>
+ <tr>
+  <td align="right">27</td>
+  <td align="right">8550</td>
+  <td align="right">4410</td>
+  <td align="right">4410</td>
+  <td align="right">6930</td>
+  <td align="right">24300</td>
+  <td align="right">0.352</td>
+  <td align="right">0.181</td>
+  <td align="right">0.181</td>
+  <td align="right">0.285</td>
+ </tr>
+ <tr>
+  <td align="right">28</td>
+  <td align="right">8554</td>
+  <td align="right">4466</td>
+  <td align="right">4466</td>
+  <td align="right">7714</td>
+  <td align="right">25200</td>
+  <td align="right">0.339</td>
+  <td align="right">0.177</td>
+  <td align="right">0.177</td>
+  <td align="right">0.306</td>
+ </tr>
+ <tr>
+  <td align="right">29</td>
+  <td align="right">8555</td>
+  <td align="right">4495</td>
+  <td align="right">4495</td>
+  <td align="right">8555</td>
+  <td align="right">26100</td>
+  <td align="right">0.328</td>
+  <td align="right">0.172</td>
+  <td align="right">0.172</td>
+  <td align="right">0.328</td>
+ </tr>
+ <tr>
+  <td align="right">30</td>
+  <td align="right">8555</td>
+  <td align="right">4495</td>
+  <td align="right">4495</td>
+  <td align="right">9455</td>
+  <td align="right">27000</td>
+  <td align="right">0.317</td>
+  <td align="right">0.166</td>
+  <td align="right">0.166</td>
+  <td align="right">0.350</td>
+ </tr>
+
+</tbody>
+ </table>
+
+<p>
+</p>
+		<p>The average proportion for the 4 combinations are below.
+&nbsp;
+
+</p><table border="0">
+ <tbody><tr>
+  <td></td>
+  <td>(x-1, d-1)</td>
+  <td>(x-1, d)</td>
+  <td>(x, d-1)</td>
+  <td>(x, d)</td>
+ </tr>
+ <tr>
+  <td>Average Proportion</td>
+  <td align="right">0.521</td>
+  <td align="right">0.160</td>
+  <td align="right">0.160</td>
+  <td align="right">0.141</td>
+ </tr>
+</tbody></table>
+
+<p></p>
+		<p>Given 0.5 month exposure is the total for a month with decrements, we further multiply each proportion by 0.5 to obtain the final exposure. 
+
+</p><table border="0">
+ <tbody><tr>
+  <td></td>
+  <td>(x-1, d-1)</td>
+  <td>(x-1, d)</td>
+  <td>(x, d-1)</td>
+  <td>(x, d)</td>
+ </tr>
+ <tr>
+  <td>Exposure</td>
+  <td align="right">0.260</td>
+  <td align="right">0.080</td>
+  <td align="right">0.080</td>
+  <td align="right">0.070</td>
+ </tr>
+
+</tbody></table>
+
+<p></p>
+<p></p>
+		<h3>Scenario 3: Policy start and decrement occur in the same month</h3>
+		<p>In this scenario, we consider:</p>
+		<ul>
+      <li>Decrements must happen on or after the policy start date such that if the policy start date and decrement date are the same, this counts as 1.</li>
+      <li>All policy start dates are equally likely.</li>
+			<li>We assume 30 days in a month.</li>
+    </ul>
+		
+		<p>We argue that for given a policy start month, the exposure is 0.5 months. Similarly in the event of decrement in that month, the exposure is 0.5 months. We can say that total exposure for the month is 0.25 (ie. 0.5 * 0.5) if policy start and decrement occurs in the same month.</p>
+		
+		<p></p>
+    <p></p>
+    <h3>Scenario 4: Birth month, policy start and decrement occur in the same month</h3>
+		<p>In this scenario, we consider that:</p>
+    <ul>
+      <li>Decrements must happen on or after the policy start date such that if the policy start date and decrement date are the same, that is consider a exposure of 1 day.</li>
+        <li>All birthdays are equally likely.</li>
+        <li>All policy start dates are equally likely.</li>
+			<li>We assume 30 days in a month.</li>
+    </ul>
+<p>The notebook implements the simulation is as such:</p><ul><li>For a policy start day (ie. Day 1), enumerate all possible decrement dates with as (policy start day, decrement day) combinations (ie. (1,1), (1,2)...(1,30).</li><li>Given the combinations for a policy start day, go through all 30 possible birth days to determine their in-force days and contributions to age x-1 or x.</li><li>Repeat for all 30 policy start days.</li></ul>
+<p>
+At the end, based on Scenario 3 (as described in the article), we need to re-weigh as total exposure to 0.25 when policy start and decrement occurs in the same month.</p>
+<p>
+The table below shows the results. 
+
+</p><table border="0">
+ <tbody><tr>
+  <td>n</td>
+  <td>Count of Age x-1</td>
+  <td>Count of Age x</td>
+  <td>Row Total</td>
+  <td>Proportion of age x-1</td>
+  <td>Proportion of Age x</td>
+ </tr>
+ <tr>
+  <td align="right">1</td>
+  <td align="right">8990</td>
+  <td align="right">4960</td>
+  <td align="right">13950</td>
+  <td align="right">0.644</td>
+  <td align="right">0.356</td>
+ </tr>
+ <tr>
+  <td align="right">2</td>
+  <td align="right">8120</td>
+  <td align="right">4930</td>
+  <td align="right">13050</td>
+  <td align="right">0.622</td>
+  <td align="right">0.378</td>
+ </tr>
+ <tr>
+  <td align="right">3</td>
+  <td align="right">7308</td>
+  <td align="right">4872</td>
+  <td align="right">12180</td>
+  <td align="right">0.600</td>
+  <td align="right">0.400</td>
+ </tr>
+ <tr>
+  <td align="right">4</td>
+  <td align="right">6552</td>
+  <td align="right">4788</td>
+  <td align="right">11340</td>
+  <td align="right">0.578</td>
+  <td align="right">0.422</td>
+ </tr>
+ <tr>
+  <td align="right">5</td>
+  <td align="right">5850</td>
+  <td align="right">4680</td>
+  <td align="right">10530</td>
+  <td align="right">0.556</td>
+  <td align="right">0.444</td>
+ </tr>
+ <tr>
+  <td align="right">6</td>
+  <td align="right">5200</td>
+  <td align="right">4550</td>
+  <td align="right">9750</td>
+  <td align="right">0.533</td>
+  <td align="right">0.467</td>
+ </tr>
+ <tr>
+  <td align="right">7</td>
+  <td align="right">4600</td>
+  <td align="right">4400</td>
+  <td align="right">9000</td>
+  <td align="right">0.511</td>
+  <td align="right">0.489</td>
+ </tr>
+ <tr>
+  <td align="right">8</td>
+  <td align="right">4048</td>
+  <td align="right">4232</td>
+  <td align="right">8280</td>
+  <td align="right">0.489</td>
+  <td align="right">0.511</td>
+ </tr>
+ <tr>
+  <td align="right">9</td>
+  <td align="right">3542</td>
+  <td align="right">4048</td>
+  <td align="right">7590</td>
+  <td align="right">0.467</td>
+  <td align="right">0.533</td>
+ </tr>
+ <tr>
+  <td align="right">10</td>
+  <td align="right">3080</td>
+  <td align="right">3850</td>
+  <td align="right">6930</td>
+  <td align="right">0.444</td>
+  <td align="right">0.556</td>
+ </tr>
+ <tr>
+  <td align="right">11</td>
+  <td align="right">2660</td>
+  <td align="right">3640</td>
+  <td align="right">6300</td>
+  <td align="right">0.422</td>
+  <td align="right">0.578</td>
+ </tr>
+ <tr>
+  <td align="right">12</td>
+  <td align="right">2280</td>
+  <td align="right">3420</td>
+  <td align="right">5700</td>
+  <td align="right">0.400</td>
+  <td align="right">0.600</td>
+ </tr>
+ <tr>
+  <td align="right">13</td>
+  <td align="right">1938</td>
+  <td align="right">3192</td>
+  <td align="right">5130</td>
+  <td align="right">0.378</td>
+  <td align="right">0.622</td>
+ </tr>
+ <tr>
+  <td align="right">14</td>
+  <td align="right">1632</td>
+  <td align="right">2958</td>
+  <td align="right">4590</td>
+  <td align="right">0.356</td>
+  <td align="right">0.644</td>
+ </tr>
+ <tr>
+  <td align="right">15</td>
+  <td align="right">1360</td>
+  <td align="right">2720</td>
+  <td align="right">4080</td>
+  <td align="right">0.333</td>
+  <td align="right">0.667</td>
+ </tr>
+ <tr>
+  <td align="right">16</td>
+  <td align="right">1120</td>
+  <td align="right">2480</td>
+  <td align="right">3600</td>
+  <td align="right">0.311</td>
+  <td align="right">0.689</td>
+ </tr>
+ <tr>
+  <td align="right">17</td>
+  <td align="right">910</td>
+  <td align="right">2240</td>
+  <td align="right">3150</td>
+  <td align="right">0.289</td>
+  <td align="right">0.711</td>
+ </tr>
+ <tr>
+  <td align="right">18</td>
+  <td align="right">728</td>
+  <td align="right">2002</td>
+  <td align="right">2730</td>
+  <td align="right">0.267</td>
+  <td align="right">0.733</td>
+ </tr>
+ <tr>
+  <td align="right">19</td>
+  <td align="right">572</td>
+  <td align="right">1768</td>
+  <td align="right">2340</td>
+  <td align="right">0.244</td>
+  <td align="right">0.756</td>
+ </tr>
+ <tr>
+  <td align="right">20</td>
+  <td align="right">440</td>
+  <td align="right">1540</td>
+  <td align="right">1980</td>
+  <td align="right">0.222</td>
+  <td align="right">0.778</td>
+ </tr>
+ <tr>
+  <td align="right">21</td>
+  <td align="right">330</td>
+  <td align="right">1320</td>
+  <td align="right">1650</td>
+  <td align="right">0.200</td>
+  <td align="right">0.800</td>
+ </tr>
+ <tr>
+  <td align="right">22</td>
+  <td align="right">240</td>
+  <td align="right">1110</td>
+  <td align="right">1350</td>
+  <td align="right">0.178</td>
+  <td align="right">0.822</td>
+ </tr>
+ <tr>
+  <td align="right">23</td>
+  <td align="right">168</td>
+  <td align="right">912</td>
+  <td align="right">1080</td>
+  <td align="right">0.156</td>
+  <td align="right">0.844</td>
+ </tr>
+ <tr>
+  <td align="right">24</td>
+  <td align="right">112</td>
+  <td align="right">728</td>
+  <td align="right">840</td>
+  <td align="right">0.133</td>
+  <td align="right">0.867</td>
+ </tr>
+ <tr>
+  <td align="right">25</td>
+  <td align="right">70</td>
+  <td align="right">560</td>
+  <td align="right">630</td>
+  <td align="right">0.111</td>
+  <td align="right">0.889</td>
+ </tr>
+ <tr>
+  <td align="right">26</td>
+  <td align="right">40</td>
+  <td align="right">410</td>
+  <td align="right">450</td>
+  <td align="right">0.089</td>
+  <td align="right">0.911</td>
+ </tr>
+ <tr>
+  <td align="right">27</td>
+  <td align="right">20</td>
+  <td align="right">280</td>
+  <td align="right">300</td>
+  <td align="right">0.067</td>
+  <td align="right">0.933</td>
+ </tr>
+ <tr>
+  <td align="right">28</td>
+  <td align="right">8</td>
+  <td align="right">172</td>
+  <td align="right">180</td>
+  <td align="right">0.044</td>
+  <td align="right">0.956</td>
+ </tr>
+ <tr>
+  <td align="right">29</td>
+  <td align="right">2</td>
+  <td align="right">88</td>
+  <td align="right">90</td>
+  <td align="right">0.022</td>
+  <td align="right">0.978</td>
+ </tr>
+ <tr>
+  <td align="right">30</td>
+  <td align="right">0</td>
+  <td align="right">30</td>
+  <td align="right">30</td>
+  <td align="right">0.000</td>
+  <td align="right">1.000</td>
+ </tr><tr><td align="right">
+</td></tr></tbody></table>
+
+<p>The average proportion and final exposure results for age x-1 and x are below.
+
+</p><table border="0">
+ <tbody><tr>
+  <td></td>
+  <td>Age x-1</td>
+  <td>Age x</td>
+ </tr>
+ <tr>
+  <td>Average</td>
+  <td align="right">0.322</td>
+  <td align="right">0.678</td>
+ </tr>
+ <tr>
+  <td>Exposure</td>
+  <td align="right">0.081</td>
+  <td align="right">0.169</td>
+ </tr>
+</tbody></table>
+
+<p></p>
+		<h3>Summary</h3>
+		<p>We explored central exposed to risk calculations for 4 scenarios when decrements occur alongside birth months, policy anniversary months and policy start months, and their allocations with regards to age and duration.</p>
+		
+    <hr/>
+</main>
+
+    <!-- dark-mode-toggle -->
+    <dark-mode-toggle permanent style="position: absolute; top: 0; border: 0; left: 1rem" mode="light" appearance="toggle"></dark-mode-toggle>
+    <script type="module" src="style/dark-mode-toggle.min.mjs"></script>
+    <script>
+      const toggle = document.querySelector("dark-mode-toggle");
+
+      // Set or remove the mode classes the first time:
+      if (toggle.mode === "dark") {
+        document.documentElement.classList.add("holiday-css-dark");
+      } else if (toggle.mode === "light") {
+        document.documentElement.classList.add("holiday-css-light");
+      }
+
+      // Listen for toggle changes (which includes `prefers-color-scheme`
+      // changes) and toggle the `dark` class accordingly:
+      toggle.addEventListener("colorschemechange", () => {
+        document.documentElement.classList.toggle(
+          "holiday-css-dark",
+          toggle.mode === "dark",
+        );
+        document.documentElement.classList.toggle(
+          "holiday-css-light",
+          toggle.mode === "light",
+        );
+      });
+    </script>
+
+</body></html>
